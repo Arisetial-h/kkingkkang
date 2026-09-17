@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="ko">
+  <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WALL ST. DREAM — 에이헨 메이슨</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Lora:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root{
     --bone:#EFEAE1;
@@ -15,13 +11,13 @@
     --red:#E23A15;
     --line:rgba(14,13,12,.20);
     --hpad:24px;           /* 좌우 여백 — 히어로 글자 크기 계산의 기준 */
-    --serif:"Lora",Georgia,"Times New Roman",serif;
-    --sans:"Inter","Noto Sans KR",system-ui,-apple-system,sans-serif;
+    --fill:4.05;           /* 6글자 대문자 1줄이 화면을 꽉 채우는 비율 상수 */
+    --serif:"Times New Roman",Times,Georgia,serif;
+    --sans:system-ui,-apple-system,"Helvetica Neue",Helvetica,"Apple SD Gothic Neo","Nanum Gothic",sans-serif;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;
-    font-synthesis:none;text-rendering:optimizeLegibility}
+  body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
   .wrap{max-width:1240px;margin:0 auto;padding:0 var(--hpad)}
   img{display:block;width:100%;height:100%;object-fit:cover}
 
@@ -52,39 +48,36 @@
     display:flex;justify-content:space-between;gap:16px;padding:16px 0;flex-wrap:wrap}
   .runner .red{color:var(--red)}
 
-  /* ── HERO : 사진 위에 SVG 타이포 고정 겹침 ─────
-     글자 폭을 폰트 메트릭에 의존하지 않고 SVG textLength로
-     강제하므로, 기기/OS 폰트가 달라도 항상 동일하게 렌더링됨 ── */
-  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;background:#0B0A09;overflow:hidden}
-  .hero>.wrap,.hero-foot .wrap{max-width:none}
-  .hero-mid{position:relative;z-index:15;padding:clamp(20px,5vh,64px) var(--hpad);width:100%;flex:1;
+  /* ── HERO : 풀블리드 사진 + 초대형 타이포 겹침 ─ */
+  .hero{position:relative;min-height:104vh;display:flex;flex-direction:column;justify-content:space-between;background:#0B0A09;overflow:hidden}
+  .hero-bg{position:absolute;inset:0}
+  .hero-bg img{width:100%;height:100%;object-fit:contain;object-position:center;
+    filter:grayscale(.72) contrast(1.15) brightness(.62) saturate(1.25)}
+  .hero-bg::after{content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(180deg,rgba(11,10,9,.55) 0%,rgba(11,10,9,.12) 34%,rgba(11,10,9,.30) 68%,rgba(11,10,9,.78) 100%),
+      radial-gradient(105% 80% at 50% 45%,rgba(0,0,0,0) 30%,rgba(0,0,0,.42) 100%);}
+  .hero-inner{position:relative;z-index:15;padding:0 var(--hpad);max-width:none;margin:0;width:100%;flex:1;
     display:flex;flex-direction:column;justify-content:center}
-
-  /* 이미지가 스테이지의 높이를 정하고, 타이포는 그 스테이지에 종속 →
-     화면 비율이 바뀌어도 글자와 사진의 상대 위치가 절대 어긋나지 않음 */
-  .hero-stage{position:relative;line-height:0;
-    width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
-  .hero-pic{width:100%;height:auto;display:block;
-    filter:grayscale(.72) contrast(1.15) brightness(.66) saturate(1.25)}
-  .hero-stage::after{content:"";position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(180deg,rgba(11,10,9,.34) 0%,rgba(11,10,9,.10) 40%,rgba(11,10,9,.30) 100%)}
-  .hero-type{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center}
-  .mega-svg{width:100%;height:auto;display:block;overflow:visible;
-    filter:drop-shadow(0 14px 44px rgba(0,0,0,.55))}
-  .mega-svg text{font-family:"Inter","Noto Sans KR",sans-serif;font-weight:900;font-size:150px;letter-spacing:0;
-    font-synthesis:none;font-kerning:none;font-variant-ligatures:none}
-  .mega-svg .solid{fill:var(--bone)}
-  .mega-svg .red{fill:var(--red)}
-  .mega-svg .ghost{fill:none;stroke:rgba(239,234,225,.68);stroke-width:3px;vector-effect:non-scaling-stroke}
-
-  .kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(239,234,225,.72);margin:0 0 .9em}
+  .hero>.wrap,.hero-foot .wrap{max-width:none}
+  .kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(239,234,225,.72);margin-bottom:.9em}
+  .mega{
+    font-weight:800;text-transform:uppercase;margin:0;color:var(--bone);
+    font-size:clamp(48px,calc((100vw - var(--hpad) * 2) / var(--fill)),440px) !important;
+    line-height:.80;letter-spacing:-.055em;
+    word-break:keep-all;overflow-wrap:normal;white-space:nowrap;
+    text-shadow:0 18px 60px rgba(0,0,0,.55);
+  }
+  .mega .ghost{color:transparent;-webkit-text-stroke:2px rgba(239,234,225,.62)}
+  .mega .red{color:var(--red)}
+  .mega .row2{display:block;transform:scaleX(1.085);transform-origin:left center}
   .vlabel{position:absolute;right:24px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;
     font-size:10.5px;letter-spacing:.4em;text-transform:uppercase;color:rgba(239,234,225,.55);z-index:16}
   .hero-foot{position:relative;z-index:15;border-top:1px solid rgba(239,234,225,.28)}
   .hero-foot .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 14px;padding:16px var(--hpad);
     font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(239,234,225,.7)}
   .hero-foot .red{color:var(--red)}
-  .scrollcue{display:inline-flex;align-items:center;gap:10px;margin-top:clamp(18px,3.4vw,40px);
+  .scrollcue{display:inline-flex;align-items:center;gap:10px;margin-top:clamp(22px,4vw,44px);
     font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--red)}
   .scrollcue::before{content:"";width:clamp(28px,7vw,64px);height:1px;background:var(--red);opacity:.8}
 
@@ -189,7 +182,7 @@
 
   /* ══════════ MOBILE TYPOGRAPHY ══════════ */
   @media (max-width:700px){
-    :root{--hpad:16px}
+    :root{--hpad:16px;--fill:4.00}
     .runner,.hero-foot .wrap,.sec-tag,.kicker,.scrollcue,.vlabel,
     .dropnote,.cap,.fact span,.cell h4,.minor-head h3,
     .minor-head .t,.m-item .adr,.m-item .yr,
@@ -200,7 +193,8 @@
     .kicker{letter-spacing:.2em;font-size:10px;line-height:1.7}
 
     .hero{min-height:100svh}
-    .mega-svg .ghost{stroke-width:1.6px}
+    .mega{line-height:.84;letter-spacing:-.045em}
+    .mega .ghost{-webkit-text-stroke:1.2px rgba(239,234,225,.66)}
     .runner{font-size:9.5px;gap:6px;padding:12px 0;flex-direction:column}
     .hero-foot .wrap{grid-template-columns:1fr 1fr;font-size:9.5px;padding:12px var(--hpad) 14px}
     .hero-foot .wrap span:nth-child(4){grid-column:1/-1}
@@ -230,6 +224,7 @@
     footer{flex-direction:column;gap:8px}
   }
   @media (max-width:380px){
+    .mega{font-size:21.5vw}
     .dos-name{font-size:17.5vw}
     .hero-foot .wrap{grid-template-columns:1fr}
   }
@@ -303,22 +298,15 @@
 
 <!-- ══ HERO ══ -->
 <header class="hero">
+  <div class="hero-bg"><img src="https://cdn.caveduck.io/charim/c1aaa1de-b4fb-4850-abf2-4c9e7f4523b5?v=9a3841" alt="월 스트리트, 뉴욕"></div>
   <div class="wrap"><div class="runner">
     <span>11 WALL ST, NEW YORK, NY 10005</span>
     <span>EQUITY SALES / MD</span>
     <span class="red">MONEY IS LANGUAGE</span>
   </div></div>
-  <div class="hero-mid">
+  <div class="hero-inner">
     <span class="kicker">The land of opportunity, or so they say presents..</span>
-    <div class="hero-stage">
-      <img class="hero-pic" src="https://cdn.caveduck.io/charim/c1aaa1de-b4fb-4850-abf2-4c9e7f4523b5?v=9a3841" alt="월 스트리트, 뉴욕">
-      <div class="hero-type">
-        <svg class="mega-svg" viewBox="0 0 1000 274" preserveAspectRatio="xMidYMid meet" role="img" aria-label="WALL ST DREAM">
-          <text x="0" y="118" textLength="1000" lengthAdjust="spacingAndGlyphs"><tspan class="solid">WALL</tspan><tspan class="red">ST</tspan></text>
-          <text x="0" y="262" textLength="1000" lengthAdjust="spacingAndGlyphs" class="ghost">DREAM</text>
-        </svg>
-      </div>
-    </div>
+    <h1 class="mega">WALL<span class="red">ST</span><span class="row2 ghost">DREAM</span></h1>
     <span class="scrollcue">↓ SCROLL &nbsp;CH. 01—05</span>
   </div>
   <span class="vlabel">AEHEN MASON / SELF-MADE, UNAUDITED</span>
