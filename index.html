@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WALL ST. DREAM — 에이헨 메이슨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Lora:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root{
     --bone:#EFEAE1;
@@ -12,13 +15,13 @@
     --red:#E23A15;
     --line:rgba(14,13,12,.20);
     --hpad:24px;           /* 좌우 여백 — 히어로 글자 크기 계산의 기준 */
-    --fill:4.05;           /* 6글자 대문자 1줄이 화면을 꽉 채우는 비율 상수 */
-    --serif:"Times New Roman",Times,Georgia,serif;
-    --sans:system-ui,-apple-system,"Helvetica Neue",Helvetica,"Apple SD Gothic Neo","Nanum Gothic",sans-serif;
+    --serif:"Lora",Georgia,"Times New Roman",serif;
+    --sans:"Inter","Noto Sans KR",system-ui,-apple-system,sans-serif;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    font-synthesis:none;text-rendering:optimizeLegibility}
   .wrap{max-width:1240px;margin:0 auto;padding:0 var(--hpad)}
   img{display:block;width:100%;height:100%;object-fit:cover}
 
@@ -59,7 +62,8 @@
 
   /* 이미지가 스테이지의 높이를 정하고, 타이포는 그 스테이지에 종속 →
      화면 비율이 바뀌어도 글자와 사진의 상대 위치가 절대 어긋나지 않음 */
-  .hero-stage{position:relative;width:100%;line-height:0}
+  .hero-stage{position:relative;line-height:0;
+    width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
   .hero-pic{width:100%;height:auto;display:block;
     filter:grayscale(.72) contrast(1.15) brightness(.66) saturate(1.25)}
   .hero-stage::after{content:"";position:absolute;inset:0;pointer-events:none;
@@ -67,7 +71,8 @@
   .hero-type{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center}
   .mega-svg{width:100%;height:auto;display:block;overflow:visible;
     filter:drop-shadow(0 14px 44px rgba(0,0,0,.55))}
-  .mega-svg text{font-family:var(--sans);font-weight:800;font-size:150px;letter-spacing:0}
+  .mega-svg text{font-family:"Inter","Noto Sans KR",sans-serif;font-weight:900;font-size:150px;letter-spacing:0;
+    font-synthesis:none;font-kerning:none;font-variant-ligatures:none}
   .mega-svg .solid{fill:var(--bone)}
   .mega-svg .red{fill:var(--red)}
   .mega-svg .ghost{fill:none;stroke:rgba(239,234,225,.68);stroke-width:3px;vector-effect:non-scaling-stroke}
@@ -184,7 +189,7 @@
 
   /* ══════════ MOBILE TYPOGRAPHY ══════════ */
   @media (max-width:700px){
-    :root{--hpad:16px;--fill:4.00}
+    :root{--hpad:16px}
     .runner,.hero-foot .wrap,.sec-tag,.kicker,.scrollcue,.vlabel,
     .dropnote,.cap,.fact span,.cell h4,.minor-head h3,
     .minor-head .t,.m-item .adr,.m-item .yr,
