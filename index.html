@@ -3,6 +3,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WALL ST. DREAM — 에이헨 메이슨</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
 <style>
   :root{
     --bone:#EFEAE1;
@@ -13,9 +15,14 @@
     --hpad:24px;           /* 좌우 여백 — 히어로 글자 크기 계산의 기준 */
     --fill:4.05;           /* 6글자 대문자 1줄이 화면을 꽉 채우는 비율 상수 */
     --serif:"Times New Roman",Times,Georgia,serif;
-    --sans:system-ui,-apple-system,"Helvetica Neue",Helvetica,"Apple SD Gothic Neo","Nanum Gothic",sans-serif;
+    --sans:"Pretendard Variable",Pretendard,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
+    --display-sans:Pretendard,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;
   }
   *{box-sizing:border-box}
+  html{
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
   html,body{margin:0;padding:0}
   body{background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
   .wrap{max-width:1240px;margin:0 auto;padding:0 var(--hpad)}
@@ -62,13 +69,19 @@
   .hero>.wrap,.hero-foot .wrap{max-width:none}
   .kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(239,234,225,.72);margin-bottom:.9em}
   .mega{
+    font-family:var(--display-sans);
     font-weight:800;text-transform:uppercase;margin:0;color:var(--bone);
     font-size:clamp(48px,calc((100vw - var(--hpad) * 2) / var(--fill)),440px) !important;
     line-height:.80;letter-spacing:-.055em;
     word-break:keep-all;overflow-wrap:normal;white-space:nowrap;
     text-shadow:0 18px 60px rgba(0,0,0,.55);
   }
-  .mega .ghost{color:transparent;-webkit-text-stroke:2px rgba(239,234,225,.62)}
+  .mega .ghost{
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+    -webkit-text-stroke:1.5px rgba(239,234,225,.72);
+    paint-order:stroke fill;
+  }
   .mega .red{color:var(--red)}
   .mega .row2{display:block;transform:scaleX(1.085);transform-origin:left center}
   .vlabel{position:absolute;right:24px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;
@@ -101,7 +114,7 @@
   .sec-tag{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-2)}
 
   /* 01 : 사진 위에 스탬프 겹치기 */
-  .overlap{position:relative;margin-top:8px;padding-bottom:clamp(40px, 9vw, 130px);}
+  .overlap{position:relative;margin-top:8;pxpadding-bottom:clamp(40px, 9vw, 130px);}
   .overlap .frame{aspect-ratio:16/9}
   .overlap .stamp{position:absolute;left:-.03em;bottom:clamp(-60px, -7vw, -20px);z-index:5;
     font-weight:800;font-size:clamp(70px,14vw,220px);line-height:.72;letter-spacing:-.06em;
@@ -193,8 +206,19 @@
     .kicker{letter-spacing:.2em;font-size:10px;line-height:1.7}
 
     .hero{min-height:100svh}
-    .mega{line-height:.84;letter-spacing:-.045em}
-    .mega .ghost{-webkit-text-stroke:1.2px rgba(239,234,225,.66)}
+    .mega{
+      line-height:.84;
+      letter-spacing:-.045em;
+      font-family:var(--display-sans);
+      font-weight:900;
+      font-synthesis:none;
+    }
+    .mega .ghost{
+      color:transparent;
+      -webkit-text-fill-color:transparent;
+      -webkit-text-stroke:2.8px rgba(239,234,225,.76);
+      paint-order:stroke fill;
+    }
     .runner{font-size:9.5px;gap:6px;padding:12px 0;flex-direction:column}
     .hero-foot .wrap{grid-template-columns:1fr 1fr;font-size:9.5px;padding:12px var(--hpad) 14px}
     .hero-foot .wrap span:nth-child(4){grid-column:1/-1}
@@ -205,7 +229,7 @@
     .lede h2{font-size:clamp(28px,9vw,40px);line-height:1.08}
     .lede p{font-size:15.5px;line-height:1.85}
     .lede p:first-of-type::first-letter{font-size:66px;padding:6px 10px 0 0}
-    .overlap .stamp{font-size:20vw;bottom:clamp(-40px,-6vw,-14px)}
+    .overlap .stamp{font-size:20vw;clamp(-40px,-6vw,-14px)}
     .band{min-height:74svh}
     .band blockquote{font-size:clamp(28px,8.6vw,44px);line-height:1.12;max-width:none}
     .fact b{font-size:clamp(30px,10vw,44px)}
@@ -213,7 +237,8 @@
     .dossier{padding-top:44px}
     .dos-top{flex-direction:column;gap:5px;font-size:9.5px}
     .dos-name{font-size:19vw;line-height:.92;letter-spacing:-.045em}
-    .dos-name .hollow{-webkit-text-stroke:1.1px var(--ink)}
+    /* 아래쪽 기본 규칙보다 우선 적용해 모바일에서는 실제로 0.7px이 되도록 고정 */
+    .dos-name .hollow{-webkit-text-stroke:.7px var(--ink) !important}
     .dos-name .l2{margin-left:0}
     .dos-body{font-size:13px;line-height:1.85}
     .tags span{font-size:10.5px;padding:4px 9px}
@@ -245,7 +270,7 @@
   .dos-top .red{color:var(--red)}
 
   .dos-stage{position:relative;margin-top:28px;padding-bottom:34px}
-  .dos-name{position:relative;z-index:2;font-weight:800;text-transform:uppercase;margin:0;
+  .dos-name{position:relative;z-index:2;font-family:var(--display-sans);font-weight:800;text-transform:uppercase;margin:0;
     font-size:clamp(56px,15.5vw,226px);line-height:.79;letter-spacing:-.055em}
   .dos-name .l2{display:block;margin-left:.02em}
   .dos-name .hollow{color:transparent;-webkit-text-stroke:1.8px var(--ink)}
