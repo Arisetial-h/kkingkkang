@@ -68,6 +68,9 @@
   .hero-inner{position:relative;z-index:15;padding:0 var(--hpad);max-width:none;margin:0;width:100%;flex:1;
     display:flex;flex-direction:column;justify-content:center}
   .hero>.wrap,.hero-foot .wrap{max-width:none}
+  @media (min-width:701px){
+    .hero-inner{padding-top:64px}
+  }
   .kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(239,234,225,.72);margin-bottom:.9em}
   .mega{
     font-family:var(--display-sans);
@@ -91,7 +94,8 @@
   .hero-foot .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 14px;padding:16px var(--hpad);
     font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(239,234,225,.7)}
   .hero-foot .red{color:var(--red)}
-  .scrollcue{display:inline-flex;align-items:center;gap:10px;margin-top:clamp(22px,4vw,44px);
+  .hero-scroll{position:relative;z-index:15;padding:14px 0 26px}
+  .scrollcue{display:inline-flex;align-items:center;gap:10px;margin:0;
     font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--red)}
   .scrollcue::before{content:"";width:clamp(28px,7vw,64px);height:1px;background:var(--red);opacity:.8}
 
@@ -115,7 +119,7 @@
   .sec-tag{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-2)}
 
   /* 01 : 사진 위에 스탬프 겹치기 */
-  .overlap{position:relative;margin-top:8px;padding-bottom:clamp(40px, 9vw, 130px);}
+  .overlap{position:relative;margin-top:8;pxpadding-bottom:clamp(40px, 9vw, 130px);}
   .overlap .frame{aspect-ratio:16/9}
   .overlap .stamp{position:absolute;left:-.03em;bottom:clamp(-60px, -7vw, -20px);z-index:5;
     font-weight:800;font-size:clamp(70px,14vw,220px);line-height:.72;letter-spacing:-.06em;
@@ -124,13 +128,13 @@
     font-size:12px;letter-spacing:.06em;line-height:1.75;text-shadow:0 2px 18px rgba(0,0,0,.8)}
   .overlap .onphoto b{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
 
-  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));border-top:1px solid var(--ink);margin-top:clamp(36px,6vw,72px);}
-  .cell{padding:22px 20px 30px 8px;border-right:1px solid var(--line)}
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));border-top:1px solid var(--ink);margin-top:0;}
+  .cell{padding:22px 24px 30px;border-right:1px solid var(--line)}
   .cell:last-child{border-right:0}
   .cell h4{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 12px}
   .cell p{font-size:14.5px;line-height:1.8;color:var(--ink-2);margin:0}
   .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--ink);margin-top:0}
-  .fact{background:var(--bone);padding:22px 20px 26px 8px}
+  .fact{background:var(--bone);padding:22px 20px 26px}
   .fact b{display:block;font-size:clamp(34px,4.8vw,60px);letter-spacing:-.045em;line-height:1}
   .fact span{display:block;margin-top:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
 
@@ -230,9 +234,13 @@
       -webkit-text-stroke:2.8px rgba(239,234,225,.76);
       paint-order:stroke fill;
     }
-    .runner{font-size:9.5px;gap:6px;padding:12px 0;flex-direction:column}
-    .hero-foot .wrap{grid-template-columns:1fr 1fr;font-size:9.5px;padding:12px var(--hpad) 14px}
-    .hero-foot .wrap span:nth-child(4){grid-column:1/-1}
+    .runner{font-size:9.5px;gap:6px;padding:12px 0;flex-direction:column;align-items:flex-start;text-align:left}
+    .runner span:nth-child(2),.runner span:nth-child(3){display:none}
+    .hero-foot .wrap{display:flex;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;
+      gap:18px;font-size:9.5px;padding:12px var(--hpad) 14px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .hero-foot .wrap::-webkit-scrollbar{display:none}
+    .hero-foot .wrap span{white-space:nowrap;flex:0 0 auto}
+    .hero-scroll{padding:12px 0 22px}
 
     .num{font-size:clamp(52px,17vw,88px)}
     .sec-title{font-size:clamp(28px,10.5vw,44px);line-height:.94;letter-spacing:-.03em}
@@ -343,7 +351,6 @@
   <div class="hero-inner">
     <span class="kicker">The land of opportunity, or so they say presents..</span>
     <h1 class="mega">WALL<span class="red">ST</span><span class="row2 ghost">DREAM</span></h1>
-    <span class="scrollcue">↓ SCROLL &nbsp;CH. 01—05</span>
   </div>
   <span class="vlabel">AEHEN MASON / SELF-MADE, UNAUDITED</span>
   <div class="hero-foot"><div class="wrap">
@@ -352,6 +359,7 @@
     <span>P/E 31.4×</span>
     <span class="red">UST 30Y &nbsp;4.88%</span>
   </div></div>
+  <div class="hero-scroll wrap"><span class="scrollcue">↓ SCROLL &nbsp;CH. 01—05</span></div>
 </header>
 
 <!-- ══ 서론 ══ -->
